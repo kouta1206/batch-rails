@@ -1,9 +1,11 @@
 class RanksUpdater
   def update_all
   # 現在のランキング情報をリセット
-    Rank.delete_all
+    Rank.transaction do
+      Rank.delete_all
 
-    create_ranks
+      create_ranks
+    end
   end
 
   private
